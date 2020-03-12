@@ -1,0 +1,19 @@
+name: flame_shells
+description: Beautiful and easy to use widgets that emulates console shells for your Flame game
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flame: ^0.18.1
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
