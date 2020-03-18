@@ -21,7 +21,7 @@ class ActionButtonsGroup extends StatelessWidget {
           final buttonSize = min(50.0, constraints.maxWidth / 2 * 0.8);
 
           return Center(child: Container(
-              width: buttonSize * 3,
+              width: buttonSize * 2.3,
               height: buttonSize * 2,
               child: Stack(children: [
                 Positioned(

@@ -16,17 +16,17 @@ class _LandscapeConsole extends StatelessWidget {
 
   Widget build(BuildContext ctx) {
     return Row(children: [
-      Expanded(flex: 2, child: DirectionPad(
+      DirectionPad(
               onTap: game.onShellButtonTap,
               onTapUp: game.onShellButtonTapUp,
               onTapDown: game.onShellButtonTapDown,
-      )),
-      Expanded(flex: 6, child: GameScreen(game: game)),
-      Expanded(flex: 2, child: ActionButtonsGroup(
+      ),
+      Expanded(child: GameScreen(game: game)),
+      ActionButtonsGroup(
               onTap: game.onShellButtonTap,
               onTapUp: game.onShellButtonTapUp,
               onTapDown: game.onShellButtonTapDown,
-      )),
+      ),
     ]);
   }
 }
