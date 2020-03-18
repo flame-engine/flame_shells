@@ -13,7 +13,7 @@ class GameScreen extends StatelessWidget {
     return Container(
         color: Color(0xFF000000),
         margin: EdgeInsets.all(10),
-        child: game.widget,
+        child: ClipRect(child: game.widget),
     );
   }
 }
