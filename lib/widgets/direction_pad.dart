@@ -20,6 +20,7 @@ class DirectionPad extends StatelessWidget {
         builder: (context, constraints) {
           final buttonSize = min(50.0, constraints.maxWidth / 3 * 0.8);
           return Center(child: Container(
+              margin: EdgeInsets.all(5),
               width: buttonSize * 3,
               height: buttonSize * 3,
               child: Stack(children: [
