@@ -2,7 +2,9 @@
 
 Beautiful and easy to use widgets that emulates console shells for your Flame game.
 
-Right now this package bundles only a single shell, emulating classic portable consoles from early 90s, featuring a direction pad and two action buttons
+Right now this package bundles only a single shell, emulating classic portable consoles from early 90s, featuring a direction pad and two action buttons.
+
+![](https://user-images.githubusercontent.com/835641/77119016-59667b00-6a14-11ea-91f2-3282590fed6c.png)
 
 ## How to use
 
