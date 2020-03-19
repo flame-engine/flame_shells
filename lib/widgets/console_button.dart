@@ -30,22 +30,26 @@ class _ConsoleButtonState extends State<ConsoleButton> {
 
   bool _pressed = false;
 
-  // TODO tapcancel
+  void _release() {
+    setState(() {
+      _pressed = false;
+    });
+    widget.onTapUp(widget.button);
+  }
+
+  void _press() {
+    setState(() {
+      _pressed = true;
+    });
+    widget.onTapDown(widget.button);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(width: widget.size, height: widget.size, child: GestureDetector(
-        onTapUp: (_) {
-          setState(() {
-            _pressed = false;
-          });
-          widget.onTapUp(widget.button);
-        },
-        onTapDown: (_) {
-          setState(() {
-            _pressed = true;
-          });
-          widget.onTapDown(widget.button);
-        },
+        onTapUp: (_) => _release(),
+        onTapDown: (_) => _press(),
+        onTapCancel: () => _release(),
         onTap: () => widget.onTap(widget.button),
         child: CustomPaint(painter: _ButtonPainter(color: widget.color, pressed: _pressed)),
     ));
