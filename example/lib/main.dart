@@ -7,14 +7,12 @@ import 'package:flame_shells/flame_shells.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Flame.util.fullScreen();
-  await Flame.util.setLandscape();
   final game = MyGame();
   final shell = FlameShell(game: game);
   runApp(shell);
 }
 
 class MyGame extends Game with HasShellControls {
-
   Rect _rect = Rect.fromLTWH(10, 10, 50, 50);
   Paint _paint = Paint()..color = Color(0xFFFFFFFF);
 
@@ -56,15 +54,18 @@ class MyGame extends Game with HasShellControls {
 
   @override
   void onShellButtonTapUp(button) {
-    if (button == FlameShellButton.DPAD_UP || button == FlameShellButton.DPAD_DOWN) {
+    if (button == FlameShellButton.DPAD_UP ||
+        button == FlameShellButton.DPAD_DOWN) {
       _yVelocity = 0;
     }
 
-    if (button == FlameShellButton.DPAD_LEFT || button == FlameShellButton.DPAD_RIGHT) {
+    if (button == FlameShellButton.DPAD_LEFT ||
+        button == FlameShellButton.DPAD_RIGHT) {
       _xVelocity = 0;
     }
 
-    if (button == FlameShellButton.ACTION_B || button == FlameShellButton.ACTION_A) {
+    if (button == FlameShellButton.ACTION_B ||
+        button == FlameShellButton.ACTION_A) {
       _paint = Paint()..color = Color(0xFFFFFFFF);
     }
   }
