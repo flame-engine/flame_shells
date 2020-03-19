@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 import '../button.dart';
+import '../utils/color_util.dart';
 
-class ConsoleButton extends StatelessWidget {
-
+class ConsoleButton extends StatefulWidget {
   final OnTapUp onTapUp;
   final OnTapDown onTapDown;
   final OnTap onTap;
@@ -23,29 +23,57 @@ class ConsoleButton extends StatelessWidget {
   });
 
   @override
+  State createState() => _ConsoleButtonState();
+}
+
+class _ConsoleButtonState extends State<ConsoleButton> {
+
+  bool _pressed = false;
+
+  // TODO tapcancel
+  @override
   Widget build(BuildContext context) {
-    return Container(width: size, height: size, child: GestureDetector(
-        onTapUp: (_) => onTapUp(button),
-        onTapDown: (_) => onTapDown(button),
-        onTap: () => onTap(button),
-        child: CustomPaint(painter: _ButtonPainter(color: color)),
+    return Container(width: widget.size, height: widget.size, child: GestureDetector(
+        onTapUp: (_) {
+          setState(() {
+            _pressed = false;
+          });
+          widget.onTapUp(widget.button);
+        },
+        onTapDown: (_) {
+          setState(() {
+            _pressed = true;
+          });
+          widget.onTapDown(widget.button);
+        },
+        onTap: () => widget.onTap(widget.button),
+        child: CustomPaint(painter: _ButtonPainter(color: widget.color, pressed: _pressed)),
     ));
   }
 }
 
 class _ButtonPainter extends CustomPainter {
   final Color color;
+  final bool pressed;
 
   _ButtonPainter({
     @required this.color,
+    @required this.pressed,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = color;
+    final darkPaint = Paint()..color = darkenColor(color, 0.2);
 
     canvas.drawCircle(
-        Offset(size.width / 2, size. height / 2),
+        Offset(size.width / 2, (size.height / 2) + 5),
+        size.width / 2,
+        darkPaint
+    );
+
+    canvas.drawCircle(
+        Offset(size.width / 2, (size. height / 2) + (pressed ? 2 : 0)),
         size.width / 2,
         paint
     );
