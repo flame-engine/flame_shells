@@ -7,9 +7,7 @@ import '../has_shell_controls.dart';
 class FlameShell extends StatelessWidget {
   final HasShellControls game;
 
-  FlameShell({
-    @required this.game
-  });
+  FlameShell({@required this.game});
 
   @override
   Widget build(BuildContext context) {
@@ -27,4 +25,3 @@ class FlameShell extends StatelessWidget {
     );
   }
 }
-
