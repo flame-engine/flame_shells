@@ -13,8 +13,8 @@ void main() async {
 }
 
 class MyGame extends Game with HasShellControls {
-  Rect _rect = Rect.fromLTWH(10, 10, 50, 50);
-  Paint _paint = Paint()..color = Color(0xFFFFFFFF);
+  Rect _rect = const Rect.fromLTWH(10, 10, 50, 50);
+  Paint _paint = Paint()..color = const Color(0xFFFFFFFF);
 
   double _xVelocity = 0.0;
   double _yVelocity = 0.0;
@@ -44,11 +44,11 @@ class MyGame extends Game with HasShellControls {
     }
 
     if (button == FlameShellButton.ACTION_B) {
-      _paint = Paint()..color = Color(0xFF00FF00);
+      _paint = Paint()..color = const Color(0xFF00FF00);
     }
 
     if (button == FlameShellButton.ACTION_A) {
-      _paint = Paint()..color = Color(0xFF0000FF);
+      _paint = Paint()..color = const Color(0xFF0000FF);
     }
   }
 
@@ -66,7 +66,7 @@ class MyGame extends Game with HasShellControls {
 
     if (button == FlameShellButton.ACTION_B ||
         button == FlameShellButton.ACTION_A) {
-      _paint = Paint()..color = Color(0xFFFFFFFF);
+      _paint = Paint()..color = const Color(0xFFFFFFFF);
     }
   }
 }
