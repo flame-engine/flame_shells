@@ -1,3 +1,6 @@
+[![Pub](https://img.shields.io/pub/v/flame_shells.svg?style=popout)](https://pub.dartlang.org/packages/flame_shells)
+[![Build Status - Travis](https://img.shields.io/github/workflow/status/flame-engine/flame_shells/Test/master?label=tests)]
+
 # Flame Shells
 
 Beautiful and easy to use widgets that emulates console shells for your Flame game.
