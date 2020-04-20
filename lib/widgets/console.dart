@@ -13,6 +13,7 @@ class _LandscapeConsole extends StatelessWidget {
     @required this.game,
   });
 
+  @override
   Widget build(BuildContext ctx) {
     return Row(children: [
       DirectionPad(
@@ -37,6 +38,7 @@ class _PortraitConsole extends StatelessWidget {
     @required this.game,
   });
 
+  @override
   Widget build(BuildContext ctx) {
     return Column(children: [
       Expanded(child: GameScreen(game: game)),

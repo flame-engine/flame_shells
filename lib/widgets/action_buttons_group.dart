@@ -15,6 +15,7 @@ class ActionButtonsGroup extends StatelessWidget {
     @required this.onTapUp,
   });
 
+  @override
   Widget build(BuildContext ctx) {
     return LayoutBuilder(builder: (context, constraints) {
       final buttonSize = min(50.0, constraints.maxWidth / 2 * 0.8);

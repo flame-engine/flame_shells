@@ -9,10 +9,11 @@ class GameScreen extends StatelessWidget {
     @required this.game,
   });
 
+  @override
   Widget build(BuildContext ctx) {
     return Container(
-      color: Color(0xFF000000),
-      margin: EdgeInsets.all(10),
+      color: const Color(0xFF000000),
+      margin: const EdgeInsets.all(10),
       child: ClipRect(child: game.widget),
     );
   }
