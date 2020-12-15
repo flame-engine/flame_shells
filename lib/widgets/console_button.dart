@@ -1,25 +1,38 @@
+import 'package:flame_shells/flame_shells.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import '../button.dart';
 import '../utils/color_util.dart';
 
-class ConsoleButton extends StatefulWidget {
-  final OnTapUp onTapUp;
-  final OnTapDown onTapDown;
-  final OnTap onTap;
-  final Color color;
-  final FlameShellButton button;
+typedef ButtonEvent = Function(int buttonId);
 
+enum ConsoleButtonStyleType {
+  CIRCULAR,
+}
+
+class ConsoleButtonStyle {
+  final Color color;
   final double size;
+  final double depth;
+  final ConsoleButtonStyleType type;
+
+  const ConsoleButtonStyle({
+    this.color = const Color(0xFF3d34eb),
+    this.size = 50,
+    this.depth = 10,
+    this.type = ConsoleButtonStyleType.CIRCULAR,
+  });
+}
+
+class ConsoleButton extends StatefulWidget {
+  final int id;
+  final HasShellControls game;
+  final ConsoleButtonStyle style;
 
   ConsoleButton({
-    @required this.color,
-    @required this.button,
-    @required this.onTapDown,
-    @required this.onTapUp,
-    @required this.onTap,
-    @required this.size,
+    @required this.game,
+    @required this.id,
+    this.style = const ConsoleButtonStyle(),
   });
 
   @override
@@ -33,37 +46,48 @@ class _ConsoleButtonState extends State<ConsoleButton> {
     setState(() {
       _pressed = false;
     });
-    widget.onTapUp(widget.button);
+    widget.game.onShellButtonTapUp(widget.id);
   }
 
   void _press() {
     setState(() {
       _pressed = true;
     });
-    widget.onTapDown(widget.button);
+    widget.game.onShellButtonTapDown(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
+    CustomPainter painter;
+
+    switch (widget.style.type) {
+      case ConsoleButtonStyleType.CIRCULAR:
+        painter = _CircularButtonPainter(
+            color: widget.style.color, pressed: _pressed);
+        break;
+    }
+
     return Container(
-        width: widget.size,
-        height: widget.size,
-        child: GestureDetector(
-          onTapUp: (_) => _release(),
-          onTapDown: (_) => _press(),
-          onTapCancel: () => _release(),
-          onTap: () => widget.onTap(widget.button),
-          child: CustomPaint(
-              painter: _ButtonPainter(color: widget.color, pressed: _pressed)),
-        ));
+      width: widget.style.size,
+      height: widget.style.size,
+      child: GestureDetector(
+        onTapUp: (_) => _release(),
+        onTapDown: (_) => _press(),
+        onTapCancel: () => _release(),
+        onTap: () => widget.game.onShellButtonTap(widget.id),
+        child: CustomPaint(
+          painter: painter,
+        ),
+      ),
+    );
   }
 }
 
-class _ButtonPainter extends CustomPainter {
+class _CircularButtonPainter extends CustomPainter {
   final Color color;
   final bool pressed;
 
-  _ButtonPainter({
+  _CircularButtonPainter({
     @required this.color,
     @required this.pressed,
   });
@@ -73,15 +97,22 @@ class _ButtonPainter extends CustomPainter {
     final paint = Paint()..color = color;
     final darkPaint = Paint()..color = darkenColor(color, 0.2);
 
-    canvas.drawCircle(Offset(size.width / 2, (size.height / 2) + 5),
-        size.width / 2, darkPaint);
+    canvas.drawCircle(
+      Offset(size.width / 2, (size.height / 2) + 5),
+      size.width / 2,
+      darkPaint,
+    );
 
     canvas.drawCircle(
-        Offset(size.width / 2, (size.height / 2) + (pressed ? 2 : 0)),
-        size.width / 2,
-        paint);
+      Offset(size.width / 2, (size.height / 2) + (pressed ? 2 : 0)),
+      size.width / 2,
+      paint,
+    );
+
+    // TODO depth
   }
 
   @override
-  bool shouldRepaint(_ButtonPainter oldDelegate) => color != oldDelegate.color;
+  bool shouldRepaint(_CircularButtonPainter oldDelegate) =>
+      color != oldDelegate.color;
 }

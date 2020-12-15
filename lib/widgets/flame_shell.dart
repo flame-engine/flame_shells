@@ -1,27 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
+import 'package:flame/game.dart';
 
-import './console.dart';
 import '../has_shell_controls.dart';
+import './button_groups/button_groups.dart';
 
 class FlameShell extends StatelessWidget {
   final HasShellControls game;
+  final GameWidget gameWidget;
+  final List<ButtonGroup> buttonGroups;
+  final EdgeInsets gamePadding;
+  final Color backgroundColor;
 
-  FlameShell({@required this.game});
+  FlameShell({
+    @required this.game,
+    this.gameWidget,
+    this.buttonGroups = const [],
+    this.gamePadding = EdgeInsets.zero,
+    this.backgroundColor,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // TODO themes on a file of its own
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: const Color(0xFF247fa3),
-        primaryColorDark: const Color(0xFF165873),
+    final _gameWidget = Container(
+      padding: gamePadding,
+      child: gameWidget ?? GameWidget(game: game),
+    );
+
+    return Container(
+      color: backgroundColor,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: _gameWidget,
+          ),
+          for (final group in buttonGroups)
+            Positioned(
+              top: group.top,
+              left: group.left,
+              right: group.right,
+              bottom: group.bottom,
+              child: group.toWidget(game),
+            ),
+        ],
       ),
-      darkTheme: ThemeData.dark().copyWith(
-        primaryColor: const Color(0xFFebae34),
-        primaryColorDark: const Color(0xFFa37924),
-      ),
-      home: Console(game: game),
     );
   }
 }
