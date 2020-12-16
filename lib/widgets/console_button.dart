@@ -24,57 +24,65 @@ class ConsoleButtonStyle {
   });
 }
 
-class ConsoleButton extends StatefulWidget {
+class ConsoleButton {
   final int id;
-  final HasShellControls game;
   final ConsoleButtonStyle style;
 
   ConsoleButton({
-    @required this.game,
     @required this.id,
     this.style = const ConsoleButtonStyle(),
   });
-
-  @override
-  State createState() => _ConsoleButtonState();
 }
 
-class _ConsoleButtonState extends State<ConsoleButton> {
+class ConsoleButtonWidget extends StatefulWidget {
+  final HasShellControls game;
+  final ConsoleButton button;
+
+  ConsoleButtonWidget({
+    @required this.game,
+    @required this.button,
+  });
+
+  @override
+  State createState() => _ConsoleButtonWidgetState();
+}
+
+class _ConsoleButtonWidgetState extends State<ConsoleButtonWidget> {
   bool _pressed = false;
 
   void _release() {
     setState(() {
       _pressed = false;
     });
-    widget.game.onShellButtonTapUp(widget.id);
+    widget.game.onShellButtonTapUp(widget.button.id);
   }
 
   void _press() {
     setState(() {
       _pressed = true;
     });
-    widget.game.onShellButtonTapDown(widget.id);
+    widget.game.onShellButtonTapDown(widget.button.id);
   }
 
   @override
   Widget build(BuildContext context) {
     CustomPainter painter;
 
-    switch (widget.style.type) {
+    switch (widget.button.style.type) {
       case ConsoleButtonStyleType.CIRCULAR:
         painter = _CircularButtonPainter(
-            color: widget.style.color, pressed: _pressed);
+            color: widget.button.style.color, pressed: _pressed);
         break;
     }
 
     return Container(
-      width: widget.style.size,
-      height: widget.style.size,
+      width: widget.button.style.size,
+      height: widget.button.style.size,
       child: GestureDetector(
         onTapUp: (_) => _release(),
         onTapDown: (_) => _press(),
         onTapCancel: () => _release(),
-        onTap: () => widget.game.onShellButtonTap(widget.id),
+        onTap: () => widget.game.onShellButtonTap(widget.button.id),
         child: CustomPaint(
           painter: painter,
         ),
