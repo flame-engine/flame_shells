@@ -12,11 +12,19 @@ void main() async {
 
   final game = MyGame();
 
-  const dpadStyle = const ConsoleButtonStyle(color: const Color(0x33A9A9A9));
+  const dpadStyle = const ConsoleButtonStyle(
+      color: const Color(0xFF777777),
+      type: ConsoleButtonStyleType.SQUARE,
+  );
   final shell = FlameShell(
     game: game,
-    gamePadding: const EdgeInsets.all(50),
-    backgroundColor: const Color(0xFF3277a8),
+    gamePadding: const EdgeInsets.only(
+        top: 20,
+        left: 175,
+        right: 175,
+        bottom: 20,
+    ),
+    backgroundColor: const Color(0xFFC5C5C5),
     buttonGroups: [
       CrossGroup(
         left: 20,
@@ -33,11 +41,11 @@ void main() async {
         buttons: [
           ConsoleButton(
             id: ACTION_B,
-            style: const ConsoleButtonStyle(color: const Color(0x3300FF00)),
+            style: const ConsoleButtonStyle(color: const Color(0xFF00FF00)),
           ),
           ConsoleButton(
             id: ACTION_A,
-            style: const ConsoleButtonStyle(color: const Color(0x330000FF)),
+            style: const ConsoleButtonStyle(color: const Color(0xFF0000FF)),
           ),
         ],
       ),

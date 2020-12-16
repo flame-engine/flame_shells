@@ -2,12 +2,14 @@ import 'package:flame_shells/flame_shells.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import '../utils/color_util.dart';
+import './console_button_painters/circular.dart';
+import './console_button_painters/square.dart';
 
 typedef ButtonEvent = Function(int buttonId);
 
 enum ConsoleButtonStyleType {
   CIRCULAR,
+  SQUARE,
 }
 
 class ConsoleButtonStyle {
@@ -70,8 +72,14 @@ class _ConsoleButtonWidgetState extends State<ConsoleButtonWidget> {
 
     switch (widget.button.style.type) {
       case ConsoleButtonStyleType.CIRCULAR:
-        painter = _CircularButtonPainter(
-            color: widget.button.style.color, pressed: _pressed);
+        painter = CircularButtonPainter(
+            color: widget.button.style.color, pressed: _pressed, depth: widget.button.style.depth,
+        );
+        break;
+      case ConsoleButtonStyleType.SQUARE:
+        painter = SquareButtonPainter(
+            color: widget.button.style.color, pressed: _pressed, depth: widget.button.style.depth,
+        );
         break;
     }
 
@@ -91,36 +99,3 @@ class _ConsoleButtonWidgetState extends State<ConsoleButtonWidget> {
   }
 }
 
-class _CircularButtonPainter extends CustomPainter {
-  final Color color;
-  final bool pressed;
-
-  _CircularButtonPainter({
-    @required this.color,
-    @required this.pressed,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color;
-    final darkPaint = Paint()..color = darkenColor(color, 0.2);
-
-    canvas.drawCircle(
-      Offset(size.width / 2, (size.height / 2) + 5),
-      size.width / 2,
-      darkPaint,
-    );
-
-    canvas.drawCircle(
-      Offset(size.width / 2, (size.height / 2) + (pressed ? 2 : 0)),
-      size.width / 2,
-      paint,
-    );
-
-    // TODO depth
-  }
-
-  @override
-  bool shouldRepaint(_CircularButtonPainter oldDelegate) =>
-      color != oldDelegate.color;
-}
