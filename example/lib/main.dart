@@ -29,22 +29,40 @@ void main() async {
       CrossGroup(
         left: 20,
         bottom: 20,
-        topButton: ConsoleButton(id: DPAD_UP, style: dpadStyle),
-        bottomButton: ConsoleButton(id: DPAD_DOWN, style: dpadStyle),
-        leftButton: ConsoleButton(id: DPAD_LEFT, style: dpadStyle),
-        rightButton: ConsoleButton(id: DPAD_RIGHT, style: dpadStyle),
+        topButton: ConsoleButton(
+            id: DPAD_UP,
+            style: dpadStyle,
+            child: const Icon(Icons.keyboard_arrow_up),
+        ),
+        bottomButton: ConsoleButton(
+            id: DPAD_DOWN,
+            style: dpadStyle,
+            child: const Icon(Icons.keyboard_arrow_down),
+        ),
+        leftButton: ConsoleButton(
+            id: DPAD_LEFT,
+            style: dpadStyle,
+            child: const Icon(Icons.keyboard_arrow_left),
+        ),
+        rightButton: ConsoleButton(
+            id: DPAD_RIGHT,
+            style: dpadStyle,
+            child: const Icon(Icons.keyboard_arrow_right),
+        ),
       ),
-      RowGroup(
+      ColumnGroup(
         bottom: 20,
         right: 20,
         buttonMargin: const EdgeInsets.all(10),
         buttons: [
           ConsoleButton(
             id: ACTION_B,
+            child: const Text('B'),
             style: const ConsoleButtonStyle(color: const Color(0xFF00FF00)),
           ),
           ConsoleButton(
             id: ACTION_A,
+            child: const Text('A'),
             style: const ConsoleButtonStyle(color: const Color(0xFF0000FF)),
           ),
         ],

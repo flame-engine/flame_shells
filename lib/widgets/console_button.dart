@@ -29,9 +29,11 @@ class ConsoleButtonStyle {
 class ConsoleButton {
   final int id;
   final ConsoleButtonStyle style;
+  final Widget child;
 
   ConsoleButton({
     @required this.id,
+    this.child,
     this.style = const ConsoleButtonStyle(),
   });
 }
@@ -93,6 +95,10 @@ class _ConsoleButtonWidgetState extends State<ConsoleButtonWidget> {
         onTap: () => widget.game.onShellButtonTap(widget.button.id),
         child: CustomPaint(
           painter: painter,
+          child: widget.button.child != null ? Container(
+              padding: _pressed ? EdgeInsets.only(top: widget.button.style.depth / 2) : null,
+              child: Center(child: widget.button.child),
+          ) : null,
         ),
       ),
     );
